@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  api:
+    image: "datascientest/fastapi:1.0.0"
+    container_name: datascientest-fastapi
+    ports:
+      - "8000:8000/tcp"
+    networks:
+      - api-network
+  authentication-api-test:
+    image: "rsalim1/ml-sentiment-analysis-api-test:1.0.0"
+    environment:
+      - API_PROTOCOL=http
+      - API_HOST=datascientest-fastapi
+      - API_PORT=8000
+      - API_ENDPOINT_TYPE=authentication
+      - API_ENDPOINT_DESCRIPTION=Authentication
+      - API_ENABLE_LOG=True
+      - API_LOG_FILE=/storage/api-test/api_test.log
+    env_file:
+      - credentials/.credentials
+    networks:
+      - api-network
+    volumes:
+      - .:/storage/api-test
+  authorization-api-test:
+    extends:
+      service: authentication-api-test
+    depends_on:
+      - "api"
+    environment:
+      - API_ENDPOINT_TYPE=authorization
+      - API_ENDPOINT_DESCRIPTION=Authorization
+  prediction-api-test:
+    extends:
+      service: authentication-api-test
+    depends_on:
+      - "api"
+    environment:
+      - API_ENDPOINT_TYPE=prediction
+      - API_ENDPOINT_DESCRIPTION=Prediction
+networks:
+  api-network:

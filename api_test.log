@@ -1,0 +1,199 @@
+
+        ============================================
+        | Date: 2021-12-19 19:57:38.339826                                    
+        | Scenario: Authentication tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/permissions
+        | params={'username': 'alice', 'password': 'wonderland'}
+        
+        - Result:
+        expected status = 200
+        expected message = Success
+        ---
+        actual status = 200
+        actual message = OK
+        actual content = {"username":"alice","permissions":["v1","v2"]}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:38.347962                                    
+        | Scenario: Authentication tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/permissions
+        | params={'username': 'bob', 'password': 'builder'}
+        
+        - Result:
+        expected status = 200
+        expected message = Success
+        ---
+        actual status = 200
+        actual message = OK
+        actual content = {"username":"bob","permissions":["v1"]}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:38.355093                                    
+        | Scenario: Authentication tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/permissions
+        | params={'username': 'clementine', 'password': 'mandarine'}
+        
+        - Result:
+        expected status = 403
+        expected message = Forbidden
+        ---
+        actual status = 403
+        actual message = Forbidden
+        actual content = {"detail":"Authentication failed"}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:38.826665                                    
+        | Scenario: Prediction tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/v1/sentiment
+        | params={'sentence': 'life is beautiful', 'username': 'alice', 'password': 'wonderland'}
+        
+        - Result:
+        expected status = 200
+        expected message = Success
+        ---
+        actual status = 200
+        actual message = OK
+        actual content = {"username":"alice","version":"v1","sentence":"life is beautiful","score":0.5994}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:38.834402                                    
+        | Scenario: Prediction tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/v2/sentiment
+        | params={'sentence': 'life is beautiful', 'username': 'alice', 'password': 'wonderland'}
+        
+        - Result:
+        expected status = 200
+        expected message = Success
+        ---
+        actual status = 200
+        actual message = OK
+        actual content = {"username":"alice","version":"v2","sentence":"life is beautiful","score":0.5994}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:38.840876                                    
+        | Scenario: Prediction tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/v1/sentiment
+        | params={'sentence': 'that sucks', 'username': 'alice', 'password': 'wonderland'}
+        
+        - Result:
+        expected status = 200
+        expected message = Success
+        ---
+        actual status = 200
+        actual message = OK
+        actual content = {"username":"alice","version":"v1","sentence":"that sucks","score":-0.3612}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:38.850854                                    
+        | Scenario: Prediction tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/v2/sentiment
+        | params={'sentence': 'that sucks', 'username': 'alice', 'password': 'wonderland'}
+        
+        - Result:
+        expected status = 200
+        expected message = Success
+        ---
+        actual status = 200
+        actual message = OK
+        actual content = {"username":"alice","version":"v2","sentence":"that sucks","score":-0.3612}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:38.940023                                    
+        | Scenario: Authorization tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/v1/sentiment
+        | params={'username': 'alice', 'password': 'wonderland'}
+        
+        - Result:
+        expected status = 200
+        expected message = Success
+        ---
+        actual status = 200
+        actual message = OK
+        actual content = {"username":"alice","version":"v1","sentence":"hello world","score":0.0}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:38.958762                                    
+        | Scenario: Authorization tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/v2/sentiment
+        | params={'username': 'alice', 'password': 'wonderland'}
+        
+        - Result:
+        expected status = 200
+        expected message = Success
+        ---
+        actual status = 200
+        actual message = OK
+        actual content = {"username":"alice","version":"v2","sentence":"hello world","score":0.0}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:38.983081                                    
+        | Scenario: Authorization tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/v1/sentiment
+        | params={'username': 'bob', 'password': 'builder'}
+        
+        - Result:
+        expected status = 200
+        expected message = Success
+        ---
+        actual status = 200
+        actual message = OK
+        actual content = {"username":"bob","version":"v1","sentence":"hello world","score":0.0}
+
+        
+        ============================================
+        | Date: 2021-12-19 19:57:39.000032                                    
+        | Scenario: Authorization tests       
+        ============================================
+        
+        - Request information:
+        | url=http://datascientest-fastapi:8000/v2/sentiment
+        | params={'username': 'bob', 'password': 'builder'}
+        
+        - Result:
+        expected status = 403
+        expected message = Forbidden
+        ---
+        actual status = 403
+        actual message = Forbidden
+        actual content = {"detail":"This service is not included in your plan."}
+
+        
